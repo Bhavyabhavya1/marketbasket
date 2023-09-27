@@ -2,3 +2,13 @@ import os
 for dirname, _, filenames in os.walk('/kaggle/input'):
     for filename in filenames:
         print(os.path.join(dirname, filename))
+from matplotlib import pyplot as plt
+df=pd.read_excel("/kaggle/input/market-basket-analysis/Assignment-1_Data.xlsx")
+df.info()
+df.dropna(subset=["Itemname"],inplace=True)
+#Dropping rows where Quantity <=0
+df = df[df["Quantity"]>0]
+df.isnull().sum()
+df['CustomerID'].fillna(99999, inplace=True)
+#Create SumPrice column
+df["SumPrice"]=df["Quantity"]*df["Price"]
